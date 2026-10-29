@@ -73,15 +73,18 @@ public class InfixCalculator {
                 while (!stack.isEmpty() && !stack.peek().equals("(")) {
                     output.append(stack.pop()).append(" ");
                 }
-                if (!stack.isEmpty() && stack.peek().equals("(")) {
-                    stack.pop();
-                }
+                stack.pop(); 
             } else {
                 output.append(token).append(" ");
             }
 
 
         }
+        while (!stack.isEmpty()) {
+            output.append(stack.pop()).append(" ");
+        }
+
+
         // TODO: pop any remaining operators from the stack to output
 
 

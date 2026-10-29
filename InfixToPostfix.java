@@ -80,6 +80,27 @@ public class InfixToPostfix {
         Stack<String> stack = new Stack<>();
         StringBuilder output = new StringBuilder();
 
+        String[] tokens = infix.split(" ");
+        for (String token : tokens) {
+            if (precedence(token) == 2 || token.equals("(")) {
+                stack.push(token);
+            } else if (precedence(token) == 1) {
+                while (!stack.isEmpty() && precedence(stack.peek()) >= 1) {
+                    output.append(stack.pop()).append(" ");
+                }
+                stack.push(token);
+            } else if (token.equals(")")) {
+                while (!stack.isEmpty() && !stack.peek().equals("(")) {
+                    output.append(stack.pop()).append(" ");
+                }
+                stack.pop();
+            } else {
+                output.append(token).append(" ");
+            }
+        }
+        while (!stack.isEmpty()) {
+            output.append(stack.pop()).append(" ");
+        }
 
         return output.toString().trim();
     }
